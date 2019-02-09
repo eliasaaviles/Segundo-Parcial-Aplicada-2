@@ -11,25 +11,13 @@ namespace PrimerParcialAplicada2.UI.Registro
 {
     public partial class rCuentas : System.Web.UI.Page
     {
-        public object Utild { get; private set; }
+      
+
+        private Repositorio<Cuenta> BLL = new Repositorio<Cuenta>();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
-                int id = UtilId.ToInt(Request.QueryString["id"]);
-                if (id > 0)
-                {
-                    Repositorio<Cuenta> repositorio = new Repositorio<Cuenta>();
-                    var cuenta = repositorio.Buscar(id);
-
-                    if (cuenta == null)
-                        Mensaje(TipoMensaje.Error, "Registro No Encontrado");
-                    else
-                        LlenaCampos(cuenta);
-                }
-            }
-
+          
         }
 
         protected void NuevoButton_Click(object sender, EventArgs e)
@@ -39,44 +27,47 @@ namespace PrimerParcialAplicada2.UI.Registro
 
         protected void GuadarButton_Click(object sender, EventArgs e)
         {
-            Repositorio<Cuenta> repositorio = new Repositorio<Cuenta>();
-            Cuenta cuentas = LlenaClase();  
+
+            Cuenta cuenta = new Cuenta();
+
+            Cuenta cuentas = LlenaClase();
             bool paso = false;
 
-            if (cuentas.CuentaId == 0)
-                paso = repositorio.Guardar(LlenaClase());
-            else
-                paso = repositorio.Modificar(LlenaClase());
-
-            if (paso)
+            if (string.IsNullOrWhiteSpace(CuentaIdTextBox.Text))
             {
-                Mensaje(TipoMensaje.Sucess, "Guardado");
-                Limpiar();
+                BLL.Guardar(LlenaClase());
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Guardado!!')", true);
+                paso = true;
             }
             else
             {
-                Mensaje(TipoMensaje.Error, "No Guardado");
-                Limpiar();
+                BLL.Modificar(LlenaClase());
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Modificado!!')", true);
+                paso = true;
             }
 
+            if (paso == false)
+            {
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No Guardado!!')", true);
 
-            
+            }
+
         }
 
         protected void EliminarButton_Click(object sender, EventArgs e)
         {
             Repositorio<Cuenta> repositorio = new Repositorio<Cuenta>();
-            Cuenta cuentas = repositorio.Buscar(UtilId.ToInt(CuentaIdTextBox.Text));
+            Cuenta cuentas = repositorio.Buscar(int.Parse(CuentaIdTextBox.Text));
 
             if (cuentas != null)
             {
                 repositorio.Eliminar(cuentas.CuentaId);
-                Mensaje(TipoMensaje.Sucess, "Eliminado Correctamente");
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Eliminado!!')", true);
                 Limpiar();
             }
             else
             {
-                Mensaje(TipoMensaje.Error, "No Se Pudo Eliminar");
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No se pudo Eiminar!!')", true);
                 Limpiar();
             }
 
@@ -93,12 +84,12 @@ namespace PrimerParcialAplicada2.UI.Registro
 
         private Cuenta LlenaClase()
         {
-            Cuenta cuentas = new Cuenta();
+            var cuentas = new Cuenta();
 
-            cuentas.CuentaId = UtilId.ToInt(CuentaIdTextBox.Text);
-            cuentas.Fecha = UtilId.ToDateTime(FechaTextBox.Text).Date;
+           
+            cuentas.Fecha = Convert.ToDateTime(FechaTextBox.Text);
             cuentas.Nombre = NombreTextBox.Text;
-            cuentas.Balance = UtilId.ToDecimal(BalanceTextBox.Text);
+            cuentas.Balance = 0;
 
             return cuentas;
         }
@@ -106,43 +97,31 @@ namespace PrimerParcialAplicada2.UI.Registro
         private void LlenaCampos(Cuenta cuentas)
         {
             CuentaIdTextBox.Text = cuentas.CuentaId.ToString();
-            FechaTextBox.Text = cuentas.Fecha.ToString();
+            FechaTextBox.Text = cuentas.Fecha.ToString("yyyy-MM-dd");
             NombreTextBox.Text = cuentas.Nombre.ToString();
             BalanceTextBox.Text = cuentas.Balance.ToString();
         }
 
-        void Mensaje(TipoMensaje tipo, string mensaje)
-        {
-            MensajeLabel.Text = mensaje;
-            if (tipo == TipoMensaje.Sucess)
-                MensajeLabel.CssClass = "alert-success";
-            else
-                MensajeLabel.CssClass = "alert-danger";
-        }
 
         protected void BuscarButton_Click(object sender, EventArgs e)
         {
-
-        }
-
-        protected void BuscarLinkButton_Click(object sender, EventArgs e)
-        {
-            Repositorio<Cuenta> repositorio = new Repositorio<Cuenta>();
-            Cuenta cuentas = repositorio.Buscar(UtilId.ToInt(CuentaIdTextBox.Text));
-
-            if (cuentas != null)
+            Cuenta Buscar = null;
+            if (!string.IsNullOrWhiteSpace(CuentaIdTextBox.Text))
             {
-                LlenaCampos(cuentas);
+                Buscar = BLL.Buscar(int.Parse(CuentaIdTextBox.Text));
+            }
+            if (Buscar != null)
+            {
+                LlenaCampos(Buscar);
             }
             else
             {
+
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No Encontrado')", true);
                 Limpiar();
-                Mensaje(TipoMensaje.Error, "No Encontrado");
-
             }
-
-
-
         }
     }
 }
+
+        

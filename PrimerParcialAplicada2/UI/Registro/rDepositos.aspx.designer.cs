@@ -31,22 +31,22 @@ namespace PrimerParcialAplicada2.UI.Registro {
         protected global::System.Web.UI.WebControls.TextBox FechaTextBox;
         
         /// <summary>
-        /// BuscarLinkButton control.
+        /// BuscarButton control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton BuscarLinkButton;
+        protected global::System.Web.UI.WebControls.LinkButton BuscarButton;
         
         /// <summary>
-        /// CuentaDropDownList control.
+        /// ListadoCuenta control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList CuentaDropDownList;
+        protected global::System.Web.UI.WebControls.DropDownList ListadoCuenta;
         
         /// <summary>
         /// ConceptoTextBox control.

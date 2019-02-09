@@ -10,7 +10,7 @@
                 <asp:ListItem></asp:ListItem>
                 <asp:ListItem>DepositoId</asp:ListItem>
                 <asp:ListItem>Fecha</asp:ListItem>
-                <asp:ListItem>CuentaId</asp:ListItem>
+                <asp:ListItem>Cuenta</asp:ListItem>
                 <asp:ListItem>Concepto</asp:ListItem>
                 <asp:ListItem>Monto</asp:ListItem>
             </asp:DropDownList>

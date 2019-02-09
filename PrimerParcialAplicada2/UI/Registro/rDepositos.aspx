@@ -11,12 +11,12 @@
         <%--Fecha--%>
         <div class="form-group col-md-3">
             <asp:Label Text="Fecha" runat="server" />
-            <asp:TextBox ID="FechaTextBox" class="form-control input-group" TextMode="Date" runat="server" />
+            <asp:TextBox ID="FechaTextBox" CssClass="form-control" TextMode="Date"  runat="server" ></asp:TextBox>
         </div>
 
         <%--Boton--%>
         <div class="col-lg-1 p-0">
-            <asp:LinkButton ID="BuscarLinkButton" CssClass="btn btn-outline-info mt-4" runat="server" OnClick="BuscarLinkButton_Click">
+            <asp:LinkButton ID="BuscarButton" CssClass="btn btn-outline-info mt-4" runat="server" OnClick="BuscarButton_Click1">
                         <span class="fas fa-search"></span>
                         Buscar
                     </asp:LinkButton>
@@ -25,11 +25,12 @@
     </div>
 
     <div class="form-row">
-        <%--CuentaId--%>
-        <div class="form-group col-md-3">
+      
+        <%--Listado de cuentas--%>
+                <div class="form-group col-md-3">
             <asp:Label Text="Cuenta" runat="server" />
-            <asp:DropDownList ID="CuentaDropDownList" class="form-control input-sm" runat="server">
-                <asp:ListItem Selected="True">[Seleccione]</asp:ListItem>
+            <asp:DropDownList ID="ListadoCuenta" CssClass="form-control" runat="server">
+                <asp:ListItem Selected="True">Seleccione:</asp:ListItem>
             </asp:DropDownList>
         </div>
 
@@ -46,7 +47,7 @@
         <%--Monto--%>
         <div class="form-group col-md-3">
             <asp:Label Text="Monto" runat="server" />
-            <asp:TextBox ID="MontoTextBox" TextMode="Number" class="form-control input-sm" placeholder="0" runat="server" />
+            <asp:TextBox ID="MontoTextBox" class="form-control input-sm" placeholder="0" runat="server" />
         </div>
     </div>
 

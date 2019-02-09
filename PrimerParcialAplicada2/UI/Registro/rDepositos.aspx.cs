@@ -9,32 +9,25 @@ using System.Web.UI.WebControls;
 
 namespace PrimerParcialAplicada2.UI.Registro
 {
+   
     public partial class rDepositos : System.Web.UI.Page
     {
+
+       
+        private DepositosRepositorio BLL = new DepositosRepositorio();
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Page.IsPostBack)
-            {
+            if (!IsPostBack)
                 LlenarCombos();
-                int id = UtilId.ToInt(Request.QueryString["id"]);
-                if (id > 0)
-                {
-                    Repositorio<Deposito> repositorio = new Repositorio<Deposito>();
-                    var cuenta = repositorio.Buscar(id);
-
-                    if (cuenta == null)
-                        Mensaje(TipoMensaje.Error, "Registro No Encontrado");
-                    else
-                        LlenaCampos(cuenta);
-                }
-            }
-        }
-
-        protected void BuscarButton_Click(object sender, EventArgs e)
-        {
 
         }
 
+
+        
+
+        
         protected void NuevoButton_Click(object sender, EventArgs e)
         {
             Limpiar();
@@ -42,42 +35,45 @@ namespace PrimerParcialAplicada2.UI.Registro
 
         protected void GuadarButton_Click(object sender, EventArgs e)
         {
-            DepositosRepositorio depositosRepositorio = new DepositosRepositorio();
-            Repositorio<Deposito> repositorio = new Repositorio<Deposito>();
-            Deposito depositos = LlenaClase();  
+            Deposito deposito= new Deposito();            
+              
             bool paso = false;
 
-            if (depositos.DepositoId == 0)
-                paso = depositosRepositorio.Guardar(LlenaClase());
+            if (string.IsNullOrWhiteSpace(DepositoIdTextBox.Text))
+            {
+                BLL.Guardar(LlenaClase());
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Guardado!!')", true);
+                paso = true;
+            }
             else
-                paso = repositorio.Modificar(LlenaClase());
+            {
+                BLL.Modificar(LlenaClase2());
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Modificado!!')", true);
+                paso = true;
+            }
 
-            if (paso)
+            if (paso == false)
             {
-                Mensaje(TipoMensaje.Sucess, "Guardado Correctamente");
-                Limpiar();
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No Guardado!!')", true);
+               
             }
-            else
-            {
-                Mensaje(TipoMensaje.Error, "No Se Pudo Guardar");
-                Limpiar();
-            }
+           
         }
 
         protected void EliminarButton_Click(object sender, EventArgs e)
         {
             DepositosRepositorio repositorio = new DepositosRepositorio();
-            Deposito depositos = repositorio.Buscar(UtilId.ToInt(DepositoIdTextBox.Text));
+            Deposito depositos = repositorio.Buscar(int.Parse(DepositoIdTextBox.Text));
 
             if (depositos != null)
             {
                 repositorio.Eliminar(depositos.DepositoId);
-                Mensaje(TipoMensaje.Sucess, "Eliminado Correctamente");
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Eliminado!!')", true);
                 Limpiar();
             }
             else
             {
-                Mensaje(TipoMensaje.Error, "No Se Pudo Eliminar");
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No Eliminado')", true);
                 Limpiar();
             }
         }
@@ -86,31 +82,44 @@ namespace PrimerParcialAplicada2.UI.Registro
         {
             DepositoIdTextBox.Text = "";
             FechaTextBox.Text = "";
-            CuentaDropDownList.SelectedIndex = 0;
+            ListadoCuenta.SelectedIndex = 0;
             ConceptoTextBox.Text = "";
             MontoTextBox.Text = "";
 
         }
 
-        void LlenarCombos()
+        private void LlenarCombos()
         {
             Repositorio<Cuenta> repositorio = new Repositorio<Cuenta>();
-            CuentaDropDownList.DataSource = repositorio.GetList(c => true);
-            CuentaDropDownList.DataValueField = "CuentaId";
-            CuentaDropDownList.DataTextField = "Nombre";
-            CuentaDropDownList.DataBind();
-            CuentaDropDownList.Items.Insert(0, new ListItem("", ""));
+            ListadoCuenta.DataSource = repositorio.GetList(c => true);
+            ListadoCuenta.DataValueField = "CuentaId";
+            ListadoCuenta.DataTextField = "Nombre";
+            ListadoCuenta.DataBind();
+            ListadoCuenta.Items.Insert(0, new ListItem("", ""));
         }
 
         private Deposito LlenaClase()
         {
             Deposito depositos = new Deposito();
 
-            depositos.DepositoId = UtilId.ToInt(DepositoIdTextBox.Text);
-            depositos.Fecha = UtilId.ToDateTime(FechaTextBox.Text);
-            depositos.CuentaId = UtilId.ToInt(CuentaDropDownList.Text);
+            
+            depositos.Fecha = Convert.ToDateTime(FechaTextBox.Text);
+            depositos.CuentaId = int.Parse(ListadoCuenta.Text);
             depositos.Concepto = ConceptoTextBox.Text;
-            depositos.Monto = UtilId.ToDecimal(MontoTextBox.Text);
+            depositos.Monto = decimal.Parse(MontoTextBox.Text);
+
+            return depositos;
+        }
+
+        private Deposito LlenaClase2()
+        {
+            Deposito depositos = new Deposito();
+
+            depositos.CuentaId = int.Parse(DepositoIdTextBox.Text);
+            depositos.Fecha = Convert.ToDateTime(FechaTextBox.Text);
+            depositos.CuentaId = int.Parse(ListadoCuenta.Text);
+            depositos.Concepto = ConceptoTextBox.Text;
+            depositos.Monto = decimal.Parse(MontoTextBox.Text);
 
             return depositos;
         }
@@ -118,25 +127,16 @@ namespace PrimerParcialAplicada2.UI.Registro
         private void LlenaCampos(Deposito depositos)
         {
             DepositoIdTextBox.Text = depositos.DepositoId.ToString();
-            FechaTextBox.Text = depositos.Fecha.ToString();
-            CuentaDropDownList.Text = depositos.CuentaId.ToString();
+            FechaTextBox.Text = depositos.Fecha.ToString("yyyy-MM-dd");
+            ListadoCuenta.Text = depositos.CuentaId.ToString();
             ConceptoTextBox.Text = depositos.Concepto;
             MontoTextBox.Text = depositos.Monto.ToString();
         }
 
-        void Mensaje(TipoMensaje tipo, string mensaje)
-        {
-            MensajeLabel.Text = mensaje;
-            if (tipo == TipoMensaje.Sucess)
-                MensajeLabel.CssClass = "alert-success";
-            else
-                MensajeLabel.CssClass = "alert-danger";
-        }
-
-        protected void BuscarLinkButton_Click(object sender, EventArgs e)
+        protected void BuscarButton_Click1(object sender, EventArgs e)
         {
             Repositorio<Deposito> repositorio = new Repositorio<Deposito>();
-            Deposito depositos = repositorio.Buscar(UtilId.ToInt(DepositoIdTextBox.Text));
+            Deposito depositos = repositorio.Buscar(int.Parse(DepositoIdTextBox.Text));
 
             if (depositos != null)
             {
@@ -144,10 +144,14 @@ namespace PrimerParcialAplicada2.UI.Registro
             }
             else
             {
-                Mensaje(TipoMensaje.Error, "No Encontrado");
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('No Encontrado')", true);
                 Limpiar();
 
             }
+        }
+
+        protected void CuentaDropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

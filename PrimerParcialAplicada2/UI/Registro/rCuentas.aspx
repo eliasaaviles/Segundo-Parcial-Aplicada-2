@@ -12,11 +12,11 @@
         <%--Fecha--%>
         <div class="form-group col-md-3">
             <asp:Label Text="Fecha" runat="server" />
-            <asp:TextBox ID="FechaTextBox" class="form-control input-group" TextMode="Date" runat="server" />
+            <asp:TextBox ID="FechaTextBox" CssClass="form-control" TextMode="Date" runat="server"></asp:TextBox>
         </div>
  <%--Boton--%>
             <div class="col-lg-1 p-0">
-            <asp:LinkButton ID="BuscarLinkButton" CssClass="btn btn-outline-info mt-4" runat="server" OnClick="BuscarLinkButton_Click">
+            <asp:LinkButton ID="BuscarLinkButton" CssClass="btn btn-outline-info mt-4" runat="server" OnClick="BuscarButton_Click">
                         <span class="fas fa-search"></span>
                         Buscar
                     </asp:LinkButton>
@@ -36,7 +36,7 @@
         <%--Balance--%>
         <div class="form-group col-md-3">
             <asp:Label Text="Balance" runat="server" />
-            <asp:TextBox ID="BalanceTextBox" TextMode="Number"  ReadOnly="true" class="form-control input-sm" placeholder="0" runat="server" />
+            <asp:TextBox ID="BalanceTextBox"   ReadOnly="true" class="form-control input-sm" runat="server" />
         </div>
 
     </div>

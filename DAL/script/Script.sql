@@ -1,1 +1,1 @@
-﻿create database PrimerParcialAP2
+﻿drop database PrimerParcialAP2

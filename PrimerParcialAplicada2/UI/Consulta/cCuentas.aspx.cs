@@ -31,7 +31,7 @@ namespace PrimerParcialAplicada2.UI.Consulta
                     break;
 
                 case 1://CuentaId
-                    id = UtilId.ToInt(CriterioTextBox.Text);
+                    id = int.Parse(CriterioTextBox.Text);
                     filtro = (c => c.CuentaId == id);
                     break;
 
@@ -44,7 +44,7 @@ namespace PrimerParcialAplicada2.UI.Consulta
                     break;
 
                 case 4://Balance
-                    decimal balance = UtilId.ToDecimal(CriterioTextBox.Text);
+                    decimal balance = decimal.Parse(CriterioTextBox.Text);
                     filtro = (c => c.Balance == balance);
                     break;
 
