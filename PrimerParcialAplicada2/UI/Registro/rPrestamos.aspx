@@ -68,6 +68,6 @@
         <asp:Button class="btn btn-primary" ID="ButtonNuevo" runat="server" Text="Nuevo" Visible="false" OnClick="ButtonNuevo_Click" />
         <asp:Button class="btn btn-success" ValidationGroup="save" ID="ButtonGuardar" runat="server" Text="Guardar" Visible="false" OnClick="ButtonGuardar_Click" />
         <asp:Button class="btn btn-danger" ID="ButtonEliminar" runat="server" Text="Eliminar" Visible="false" OnClick="ButtonEliminar_Click" />
-        
+        <asp:Button class="btn btn-warning" ID="ButtonImprimir" runat="server" Text="Imprimir" Visible="false" />
     </div>
 </asp:Content>

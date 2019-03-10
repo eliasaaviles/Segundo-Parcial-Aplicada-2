@@ -65,7 +65,7 @@ namespace PrimerParcialAplicada2.UI.Registro
             TextBoxCapitalTotal.Text = Decimal.Floor(totalC).ToString();
             TextBoxInteresTotal.Text = totalI.ToString();
             ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Cuotas calculadas')", true);
-            _Visible();
+            Visible();
         }
 
         private void ListCuentas()
@@ -79,14 +79,14 @@ namespace PrimerParcialAplicada2.UI.Registro
         }
 
 
-        private void _Visible()
+        private void Visible()
         {
             TextBoxCapitalTotal.Visible = true;
             TextBoxInteresTotal.Visible = true;
             ButtonNuevo.Visible = true;
             ButtonGuardar.Visible = true;
             ButtonEliminar.Visible = true;
-            ButtonImprimir.Visible = true;
+            
         }
 
         private void Invisible()
@@ -95,8 +95,7 @@ namespace PrimerParcialAplicada2.UI.Registro
             TextBoxInteresTotal.Visible = false;
             ButtonNuevo.Visible = false;
             ButtonGuardar.Visible = false;
-            ButtonEliminar.Visible = false;
-            ButtonImprimir.Visible = false;
+            ButtonEliminar.Visible = false;            
         }
 
         protected void ButtonNuevo_Click(object sender, EventArgs e)
@@ -173,7 +172,7 @@ namespace PrimerParcialAplicada2.UI.Registro
                 LlenarCampos(prestamo);
                 active = true;
                 ViewState["Active"] = active;
-                _Visible();
+                Visible();
             }
             else
                 ScriptManager.RegisterStartupScript(Page, typeof(Page), "Popup", "alert('Prestamo no Encontrado')", true);
