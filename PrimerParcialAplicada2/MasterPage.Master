@@ -10,15 +10,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 
-       
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    
+    <link href="css/toastr.css" rel="stylesheet" />
+    <script src="js/toastr.js"></script>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+    </asp:ContentPlaceHolder>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-    
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
-    
+   
 
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -43,6 +47,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" runat="server" href="~/UI/Registro/rCuentas.aspx">Cuentas</a>
                         <a class="dropdown-item" runat="server" href="~/UI/Registro/rDepositos.aspx">Depositos</a>
+                        <a class="dropdown-item" runat="server" href="~/UI/Registro/rPrestamos.aspx">Prestamos</a>
                     </div>
                 </li>
 
@@ -51,6 +56,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" runat="server" href="~/UI/Consulta/cCuentas.aspx">Cuentas</a>
                         <a class="dropdown-item" runat="server" href="~/UI/Consulta/cDepositos.aspx">Depositos</a>
+                        <a class="dropdown-item" runat="server" href="~/UI/Consulta/cPrestamo.aspx">Prestamos</a>
                     </div>
                 </li>
 

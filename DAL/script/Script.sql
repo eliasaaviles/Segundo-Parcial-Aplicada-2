@@ -1,1 +1,1 @@
-﻿drop database PrimerParcialAP2
+﻿create database SegunndoParcialAP2

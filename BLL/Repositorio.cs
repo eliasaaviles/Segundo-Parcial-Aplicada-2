@@ -93,21 +93,20 @@ namespace BLL
             return entity;
         }
 
-        public List<T> GetList(Expression<Func<T, bool>> expression)
+        public virtual List<T> GetList(Expression<Func<T, bool>> expression)
         {
-            List<T> list = null;
-
+            List<T> Lista = new List<T>();
             try
             {
-                list = contexto.Set<T>().Where(expression).ToList();
+                Lista = contexto.Set<T>().Where(expression).ToList();
             }
             catch (Exception)
             {
                 throw;
             }
-
-            return list;
+            return Lista;
         }
+
 
         public void Dispose()
         {
